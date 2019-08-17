@@ -20,8 +20,9 @@ cp README.txt $RELEASE_DIR
 cp CHANGELOG.txt $RELEASE_DIR
 
 ###############################################################################
-#configs=( MBHP_CORE_STM32 MBHP_CORE_LPC17 MBHP_CORE_STM32F4 )
-configs=( MBHP_CORE_LPC17 MBHP_CORE_STM32F4 )
+configs=( MBHP_CORE_STM32 )
+#configs=( MBHP_CORE_LPC17 MBHP_CORE_STM32F4 )
+
 for i in "${configs[@]}"; do
   echo "Building for $i"
   source ../../../source_me_${i}
@@ -29,8 +30,10 @@ for i in "${configs[@]}"; do
   mkdir -p $RELEASE_DIR/$MIOS32_BOARD
   make > $RELEASE_DIR/$MIOS32_BOARD/log.txt || exit 1
   cp project.hex $RELEASE_DIR/$MIOS32_BOARD
+  cp ./project_build/project.bin $RELEASE_DIR/$MIOS32_BOARD
 done
 
-###############################################################################
 make cleanall
+
+###############################################################################
 echo "Done!"

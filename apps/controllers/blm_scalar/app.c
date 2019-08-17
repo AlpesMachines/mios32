@@ -20,6 +20,7 @@
 
 #include <blm_scalar.h>
 #include "sysex.h"
+#include <keyboard.h>
 
 #include <FreeRTOS.h>
 #include <task.h>
@@ -72,6 +73,9 @@ void APP_Init(void)
 
   // initialize SysEx parser
   SYSEX_Init(0);
+
+  // init keyboard functions
+  KEYBOARD_Init(0);
 
   // start BLM check task
   xTaskCreate(TASK_BLM_Check, (signed portCHAR *)"BLM_Check", configMINIMAL_STACK_SIZE, NULL, PRIORITY_TASK_BLM_CHECK, NULL);
@@ -332,6 +336,8 @@ void APP_SRIO_ServicePrepare(void)
 {
   // prepare DOUT registers to drive the column
   BLM_SCALAR_PrepareCol();
+  // -> keyboard handler
+  KEYBOARD_SRIO_ServicePrepare(); 
 }
 
 
@@ -342,6 +348,9 @@ void APP_SRIO_ServiceFinish(void)
 {
   // call the BLM_GetRow function after scan is finished to capture the read DIN values
   BLM_SCALAR_GetRow();
+
+  // -> keyboard handler
+  KEYBOARD_SRIO_ServiceFinish();
 }
 
 
@@ -369,6 +378,8 @@ void APP_ENC_NotifyChange(u32 encoder, s32 incrementer)
 /////////////////////////////////////////////////////////////////////////////
 void APP_AIN_NotifyChange(u32 pin, u32 pin_value)
 {
+  // -> keyboard
+  KEYBOARD_AIN_NotifyChange(pin, pin_value); 
   // a pot has been moved, send modulation CC#1
   if( pin < 16 ) {
     // convert 12bit value to 7bit value
@@ -454,6 +465,14 @@ void DIN_BLM_NotifyToggle(u32 pin, u32 pin_value)
 
 static void TASK_BLM_Check(void *pvParameters)
 {
+
+  // -> keyboard handler
+    KEYBOARD_Periodic_1mS();
+
+  for(pin=0; pin<8; ++pin) {
+	KEYBOARD_AIN_NotifyChange(pin, MIOS32_AIN_PinGet(pin));
+  } 
+ 
   portTickType xLastExecutionTime;
 
   // Initialise the xLastExecutionTime variable on task entry

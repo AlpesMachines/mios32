@@ -27,7 +27,6 @@
 extern USB_OTG_CORE_HANDLE  USB_OTG_dev;
 #endif
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Local definitions
 /////////////////////////////////////////////////////////////////////////////
@@ -41,16 +40,16 @@ extern USB_OTG_CORE_HANDLE  USB_OTG_dev;
 //   o pull-up already available
 //   o normaly used in Open Drain mode, so that no short circuit if jumper is stuffed
 #if defined(MIOS32_FAMILY_STM32F10x)
-# define BSL_HOLD_PORT        GPIOB
-# define BSL_HOLD_PIN         GPIO_Pin_2
-# define BSL_HOLD_STATE       ((BSL_HOLD_PORT->IDR & BSL_HOLD_PIN) ? 0 : 1)
+#define BSL_HOLD_PORT        GPIOB
+#define BSL_HOLD_PIN         GPIO_Pin_2
+#define BSL_HOLD_STATE       ((BSL_HOLD_PORT->IDR & BSL_HOLD_PIN) ? 0 : 1)
 #elif defined(MIOS32_FAMILY_STM32F4xx)
-# define BSL_HOLD_PORT        GPIOA
-# define BSL_HOLD_PIN         GPIO_Pin_0
-# define BSL_HOLD_STATE       ((BSL_HOLD_PORT->IDR & BSL_HOLD_PIN) ? 1 : 0) // the "User Button" has a pull-down device
+#define BSL_HOLD_PORT        GPIOA
+#define BSL_HOLD_PIN         GPIO_Pin_0
+#define BSL_HOLD_STATE       ((BSL_HOLD_PORT->IDR & BSL_HOLD_PIN) ? 1 : 0) // the "User Button" has a pull-down device
 #else
-# define BSL_HOLD_INIT        { MIOS32_SYS_LPC_PINSEL(1, 27, 0); MIOS32_SYS_LPC_PINDIR(1, 27, 0); MIOS32_SYS_LPC_PINMODE(1, 27, 0); }
-# define BSL_HOLD_STATE       ((LPC_GPIO1->FIOPIN & (1 << 27)) ? 0 : 1)
+#define BSL_HOLD_INIT        { MIOS32_SYS_LPC_PINSEL(1, 27, 0); MIOS32_SYS_LPC_PINDIR(1, 27, 0); MIOS32_SYS_LPC_PINMODE(1, 27, 0); }
+#define BSL_HOLD_STATE       ((LPC_GPIO1->FIOPIN & (1 << 27)) ? 0 : 1)
 #endif
 
 
@@ -173,6 +172,7 @@ static s32 ResetSRIOChains(void);
 /////////////////////////////////////////////////////////////////////////////
 int main(void)
 {
+
   ///////////////////////////////////////////////////////////////////////////
   // initialize system
   ///////////////////////////////////////////////////////////////////////////
@@ -180,6 +180,7 @@ int main(void)
   MIOS32_DELAY_Init(0);
 
   MIOS32_BOARD_LED_Init(BSL_LED_MASK);
+
 #if !defined(MIOS32_FAMILY_STM32F10x) && !defined(MIOS32_FAMILY_STM32F4xx)
   BSL_HOLD_INIT; // e.g. for LPC17xx
 #endif
@@ -229,7 +230,6 @@ int main(void)
   ///////////////////////////////////////////////////////////////////////////
   BSL_SYSEX_Init(0);
 
-
   ///////////////////////////////////////////////////////////////////////////
   // check for optional fast boot
   ///////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,6 @@ int main(void)
   }
 #endif
 
-
   ///////////////////////////////////////////////////////////////////////////
   // send upload request to USB and UART MIDI
   ///////////////////////////////////////////////////////////////////////////
@@ -256,11 +255,11 @@ int main(void)
       BSL_SYSEX_SendUploadReq(USB0);
   }
 
-
   ///////////////////////////////////////////////////////////////////////////
   // reset stopwatch timer and start wait loop
   if( !fastboot ) {
     MIOS32_STOPWATCH_Reset();
+
     do {
       // This is a simple way to pulsate a LED via PWM
       // A timer in incrementer mode is used as reference, the counter value is incremented each 100 uS
@@ -278,7 +277,7 @@ int main(void)
 
       // call periodic hook each mS (!!! important - not shorter due to timeout counters which are handled here)
       if( (cnt % 10) == 0 ) {
-	MIOS32_MIDI_Periodic_mS();
+        MIOS32_MIDI_Periodic_mS();
       }
 
       // check for incoming MIDI messages - no hooks are used

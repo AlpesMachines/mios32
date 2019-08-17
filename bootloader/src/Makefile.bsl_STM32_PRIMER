@@ -14,7 +14,7 @@ LCD       =     dummy
 # Source Files, include paths and libraries
 ################################################################################
 
-THUMB_SOURCE    = startup_stm32f10x_hd.c \
+THUMB_SOURCE    = startup_stm32f10x_md.c \
 		  main.c \
 		  bsl_sysex.c
 

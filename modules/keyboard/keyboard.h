@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 // number of keyboards handled in parallel
-#define KEYBOARD_NUM 2
+#define KEYBOARD_NUM 1
 
 
 // AIN components

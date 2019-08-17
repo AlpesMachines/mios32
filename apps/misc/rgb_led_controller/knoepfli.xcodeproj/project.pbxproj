@@ -140,7 +140,7 @@
 		11BA6C7A0FE1328A000DC1B3 /* FreeRTOSConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeRTOSConfig.h; sourceTree = "<group>"; };
 		11BA6C7B0FE1328A000DC1B3 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		11BA6C7D0FE1328A000DC1B3 /* programming_model.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = programming_model.mk; sourceTree = "<group>"; };
-		11BA6C7E0FE1328A000DC1B3 /* startup_stm32f10x_hd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = startup_stm32f10x_hd.c; sourceTree = "<group>"; };
+		11BA6C7E0FE1328A000DC1B3 /* startup_stm32f10x_md.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = startup_stm32f10x_md.c; sourceTree = "<group>"; };
 		11BA6C800FE1328A000DC1B3 /* stm32f10x_conf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stm32f10x_conf.h; sourceTree = "<group>"; };
 		11C2CC5F0F7A63020035B85F /* sysex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sysex.c; sourceTree = "<group>"; };
 		11C2CC600F7A63020035B85F /* sysex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysex.h; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 				11BA6C7A0FE1328A000DC1B3 /* FreeRTOSConfig.h */,
 				11BA6C7B0FE1328A000DC1B3 /* main.c */,
 				11BA6C7D0FE1328A000DC1B3 /* programming_model.mk */,
-				11BA6C7E0FE1328A000DC1B3 /* startup_stm32f10x_hd.c */,
+				11BA6C7E0FE1328A000DC1B3 /* startup_stm32f10x_md.c */,
 				11BA6C800FE1328A000DC1B3 /* stm32f10x_conf.h */,
 			);
 			name = "Programming Model";

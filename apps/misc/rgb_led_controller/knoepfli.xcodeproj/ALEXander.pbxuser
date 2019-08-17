@@ -570,7 +570,7 @@
 			sepNavVisRange = "{0, 1023}";
 		};
 	};
-	11BA6C7E0FE1328A000DC1B3 /* startup_stm32f10x_hd.c */ = {
+	11BA6C7E0FE1328A000DC1B3 /* startup_stm32f10x_md.c */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1301, 6128}}";
 			sepNavSelRange = "{0, 0}";

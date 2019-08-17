@@ -1,5 +1,5 @@
 /* $Id$
-Linker script for STM32F103RE
+Linker script for STM32F103RB
 Based on scripts from Raisonance
 */
 

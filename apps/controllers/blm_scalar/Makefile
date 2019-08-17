@@ -54,6 +54,9 @@ include $(MIOS32_PATH)/modules/app_lcd/$(LCD)/app_lcd.mk
 # BLM_SCALAR driver
 include $(MIOS32_PATH)/modules/blm_scalar/blm_scalar.mk
 
+# KEYBOARD driver
+include $(MIOS32_PATH)/modules/keyboard/keyboard.mk 
+
 # common make rules
 # Please keep this include statement at the end of this Makefile. Add new modules above.
 include $(MIOS32_PATH)/include/makefile/common.mk

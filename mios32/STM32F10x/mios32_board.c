@@ -206,10 +206,10 @@ s32 MIOS32_BOARD_LED_Init(u32 leds)
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
-  // only one LED, connected to PD2
+  // only one LED, connected to PC13
   if( leds & 1 ) {
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+    GPIO_Init(GPIOC, &GPIO_InitStructure);
   }
 
   if( leds & 0xfffffffe)
@@ -255,7 +255,7 @@ s32 MIOS32_BOARD_LED_Set(u32 leds, u32 value)
 #if defined(MIOS32_BOARD_MBHP_CORE_STM32)
   // only one LED, connected to PD2
   if( leds & 1 ) {
-    MIOS32_SYS_STM_PINSET(GPIOD, GPIO_Pin_2, value & 1);
+    MIOS32_SYS_STM_PINSET(GPIOC, GPIO_Pin_13, value & 1 ? 0 : 1);
   }
 
   if( leds & 0xfffffffe)
@@ -291,7 +291,7 @@ u32 MIOS32_BOARD_LED_Get(void)
 
 #if defined(MIOS32_BOARD_MBHP_CORE_STM32)
   // only one LED, connected to PD2
-  if( GPIOD->ODR & GPIO_Pin_2 )
+  if( GPIOC->ODR & GPIO_Pin_13 )
     values |= (1 << 0);
 #elif defined(MIOS32_BOARD_STM32_PRIMER)
   // two LEDs, connected to PB8 (green) and PB9 (red)

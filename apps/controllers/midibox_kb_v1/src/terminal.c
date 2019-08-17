@@ -26,7 +26,6 @@
 #include "app.h"
 #include "presets.h"
 #include "terminal.h"
-#include "uip_terminal.h"
 #include "tasks.h"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -143,9 +142,6 @@ s32 TERMINAL_ParseLine(char *input, void *_output_function)
   char *brkt;
   char *parameter;
 
-  if( UIP_TERMINAL_ParseLine(input, _output_function) > 0 )
-    return 0; // command parsed by UIP Terminal
-
   if( KEYBOARD_TerminalParseLine(input, _output_function) > 0 )
     return 0; // command parsed by Keyboard Terminal
 
@@ -162,7 +158,6 @@ s32 TERMINAL_ParseLine(char *input, void *_output_function)
       out("  system:                           print system info");
       KEYBOARD_TerminalHelp(_output_function);
       out("  set srio_num <1..16>:             max. number of scanned DIN/DOUT registers (currently: %d)", MIOS32_SRIO_ScanNumGet());
-      UIP_TERMINAL_Help(_output_function);
       MIDIMON_TerminalHelp(_output_function);
       MIDI_ROUTER_TerminalHelp(_output_function);
       out("  store:                            stores current config as preset");

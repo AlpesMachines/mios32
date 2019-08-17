@@ -30,8 +30,8 @@
 // Local definitions
 /////////////////////////////////////////////////////////////////////////////
 
-#define STOPWATCH_TIMER_BASE                 TIM6
-#define STOPWATCH_TIMER_RCC   RCC_APB1Periph_TIM6
+#define STOPWATCH_TIMER_BASE                 TIM1
+#define STOPWATCH_TIMER_RCC   RCC_APB2Periph_TIM1
 
 // timers clocked at CPU clock
 #define TIM_PERIPHERAL_FRQ MIOS32_SYS_CPU_FREQUENCY
@@ -74,7 +74,7 @@
 s32 MIOS32_STOPWATCH_Init(u32 resolution)
 {
   // enable timer clock
-  if( STOPWATCH_TIMER_BASE == TIM1 || STOPWATCH_TIMER_BASE == TIM8 )
+  if(STOPWATCH_TIMER_BASE == TIM1)
     RCC_APB2PeriphClockCmd(STOPWATCH_TIMER_RCC, ENABLE);
   else
     RCC_APB1PeriphClockCmd(STOPWATCH_TIMER_RCC, ENABLE);

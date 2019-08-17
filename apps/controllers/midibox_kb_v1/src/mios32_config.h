@@ -10,6 +10,25 @@
 #ifndef _MIOS32_CONFIG_H
 #define _MIOS32_CONFIG_H
 
+// Config for stm32f103c8t6
+#define MIOS32_DONT_USE_LCD 1
+#define MIOS32_DONT_USE_STOPWATCH 1
+#define MIOS32_DONT_USE_ENC28J60 1
+#define MIOS32_DONT_USE_SDCARD 1
+//#define MIOS32_DONT_USE_DIN 1
+#define MIOS32_DONT_USE_SPI_MIDI 1
+#define MIOS32_DONT_USE_UART_MIDI 1
+#define MIOS32_DONT_USE_IIC_BS 1
+#define MIOS32_DONT_USE_MF 1
+#define MIOS32_UART_NUM 2
+
+// midi ports
+#define MIDI_PORT_NUM_IN_PORTS_UART 0
+#define MIDI_PORT_NUM_IN_PORTS_OSC 0
+#define MIDI_PORT_NUM_OUT_PORTS_OSC 0
+#define MIOS32_USB_MIDI_NUM_PORTS 1
+#define MIOS32_SPI_MIDI_NUM_PORTS 0
+
 // The boot message which is print during startup and returned on a SysEx query
 #define MIOS32_LCD_BOOT_MSG_LINE1 "MIDIboxKB V1.017"
 #define MIOS32_LCD_BOOT_MSG_LINE2 "(C) 2015 T.Klose"
@@ -18,7 +37,6 @@
 #define MIOS32_USB_VENDOR_STR   "midibox.org" // you will see this in the USB device description
 #define MIOS32_USB_PRODUCT_STR  "MIDIboxKB"   // you will see this in the MIDI device list
 
-#define MIOS32_USB_MIDI_NUM_PORTS 4           // we provide 4 USB ports
 
 // disables the default SRIO scan routine in programming_models/traditional/main.c
 // allows to implement an own handler

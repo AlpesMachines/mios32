@@ -7,7 +7,7 @@
 # is used
 ################################################################################
 
-PROCESSOR =	STM32F103RB
+PROCESSOR =	STM32F103C8T6
 FAMILY    = 	STM32F10x
 BOARD	  = 	MBHP_CORE_STM32
 LCD       =     dummy
@@ -17,7 +17,7 @@ LCD       =     dummy
 # Source Files, include paths and libraries
 ################################################################################
 
-THUMB_SOURCE    = startup_stm32f10x_hd.c \
+THUMB_SOURCE    = startup_stm32f10x_md.c \
 		  main_dummy.c
 
 # (following source stubs not relevant for Cortex M3 derivatives)

@@ -29,7 +29,7 @@
 // Pin definitions and USART mappings
 /////////////////////////////////////////////////////////////////////////////
 
-#define NUM_SUPPORTED_UARTS 3
+#define NUM_SUPPORTED_UARTS 2
 
 #define MIOS32_UART0_TX_PORT     GPIOA
 #define MIOS32_UART0_TX_PIN      GPIO_Pin_9
@@ -40,23 +40,23 @@
 #define MIOS32_UART0_IRQHANDLER_FUNC void USART1_IRQHandler(void)
 #define MIOS32_UART0_REMAP_FUNC  {}
 
-#define MIOS32_UART1_TX_PORT     GPIOC
-#define MIOS32_UART1_TX_PIN      GPIO_Pin_10
-#define MIOS32_UART1_RX_PORT     GPIOC
-#define MIOS32_UART1_RX_PIN      GPIO_Pin_11
-#define MIOS32_UART1             USART3
-#define MIOS32_UART1_IRQ_CHANNEL USART3_IRQn
-#define MIOS32_UART1_IRQHANDLER_FUNC void USART3_IRQHandler(void)
-#define MIOS32_UART1_REMAP_FUNC  { GPIO_PinRemapConfig(GPIO_PartialRemap_USART3, ENABLE); }
+#define MIOS32_UART1_TX_PORT     GPIOA
+#define MIOS32_UART1_TX_PIN      GPIO_Pin_2
+#define MIOS32_UART1_RX_PORT     GPIOA
+#define MIOS32_UART1_RX_PIN      GPIO_Pin_3
+#define MIOS32_UART1             USART2
+#define MIOS32_UART1_IRQ_CHANNEL USART2_IRQn
+#define MIOS32_UART1_IRQHANDLER_FUNC void USART2_IRQHandler(void)
+#define MIOS32_UART1_REMAP_FUNC  {}
 
-#define MIOS32_UART2_TX_PORT     GPIOA
-#define MIOS32_UART2_TX_PIN      GPIO_Pin_2
-#define MIOS32_UART2_RX_PORT     GPIOA
-#define MIOS32_UART2_RX_PIN      GPIO_Pin_3
-#define MIOS32_UART2             USART2
-#define MIOS32_UART2_IRQ_CHANNEL USART2_IRQn
-#define MIOS32_UART2_IRQHANDLER_FUNC void USART2_IRQHandler(void)
-#define MIOS32_UART2_REMAP_FUNC  {}
+//#define MIOS32_UART1_TX_PORT     GPIOC
+//#define MIOS32_UART1_TX_PIN      GPIO_Pin_10
+//#define MIOS32_UART1_RX_PORT     GPIOC
+//#define MIOS32_UART1_RX_PIN      GPIO_Pin_11
+//#define MIOS32_UART1             USART3
+//#define MIOS32_UART1_IRQ_CHANNEL USART3_IRQn
+//#define MIOS32_UART1_IRQHANDLER_FUNC void USART3_IRQHandler(void)
+//#define MIOS32_UART1_REMAP_FUNC  { GPIO_PinRemapConfig(GPIO_PartialRemap_USART3, ENABLE); }
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -648,7 +648,9 @@ s32 MIOS32_UART_TxBufferPutMore_NonBlocking(u8 uart, u8 *buffer, u16 len)
       switch( uart ) {
         case 0: MIOS32_UART0->CR1 |= (1 << 7); break; // enable TXE interrupt (TXEIE=1)
         case 1: MIOS32_UART1->CR1 |= (1 << 7); break; // enable TXE interrupt (TXEIE=1)
+#if MIOS32_UART_NUM > 2
         case 2: MIOS32_UART2->CR1 |= (1 << 7); break; // enable TXE interrupt (TXEIE=1)
+#endif
         default: MIOS32_IRQ_Enable(); return -3; // uart not supported by routine (yet)
       }
     }
@@ -788,7 +790,7 @@ MIOS32_UART1_IRQHANDLER_FUNC
 /////////////////////////////////////////////////////////////////////////////
 // Interrupt handler for third UART
 /////////////////////////////////////////////////////////////////////////////
-#if MIOS32_UART_NUM >= 2
+#if MIOS32_UART_NUM > 2
 MIOS32_UART2_IRQHANDLER_FUNC
 {
   if( MIOS32_UART2->SR & (1 << 5) ) { // check if RXNE flag is set

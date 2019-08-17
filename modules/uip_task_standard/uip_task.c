@@ -33,7 +33,7 @@
 //#include "telnetd.h"
 #include "osc_server.h"
 #include "osc_client.h"
-#include "dhcpc.h"
+//#include "dhcpc.h"
 
 #if OSC_SERVER_ESP8266_ENABLED
 #include <esp8266.h>
@@ -346,7 +346,7 @@ s32 UIP_TASK_DHCP_EnableSet(u8 _dhcp_enabled)
     uip_setnetmask(ipaddr);
     uip_setdraddr(ipaddr);
 
-    dhcpc_init(uip_ethaddr.addr, sizeof(uip_ethaddr.addr));
+    //dhcpc_init(uip_ethaddr.addr, sizeof(uip_ethaddr.addr));
 #if DEBUG_VERBOSE_LEVEL >= 1
     if( network_device_available() ) { // don't print message if ethernet device is not available, the message could confuse "normal users"
       UIP_TASK_MUTEX_MIDIOUT_TAKE;
@@ -556,7 +556,7 @@ s32 UIP_TASK_UDP_AppCall(void)
 {
   // DHCP client
   if( uip_udp_conn->rport == HTONS(DHCPC_SERVER_PORT) || uip_udp_conn->rport == HTONS(DHCPC_CLIENT_PORT) ) {
-    dhcpc_appcall();
+    //dhcpc_appcall();
 
     // monitor option
     if( udp_monitor_level >= UDP_MONITOR_LEVEL_4_ALL )

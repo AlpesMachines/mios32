@@ -36,6 +36,10 @@
 #include "uip_task.h"
 #include "osc_client.h"
 
+#include "stm32f10x.h"
+#include "stm32f10x_gpio.h"
+#include "stm32f10x_rcc.h"
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Local defines
@@ -78,6 +82,7 @@ static void APP_AINSER_NotifyChange(u32 module, u32 pin, u32 pin_value);
 /////////////////////////////////////////////////////////////////////////////
 void APP_Init(void)
 {
+
   // create semaphores
   xMIDIINSemaphore = xSemaphoreCreateRecursiveMutex();
   xMIDIOUTSemaphore = xSemaphoreCreateRecursiveMutex();
@@ -139,6 +144,13 @@ void APP_Init(void)
 
   // start tasks
   xTaskCreate(TASK_Period_1mS, "1mS", configMINIMAL_STACK_SIZE, NULL, PRIORITY_TASK_PERIOD_1mS, NULL);
+
+//  int i = 0;
+// 
+//  while (1) {
+//    	for(i=0;i<0x100000;i++) { MIOS32_BOARD_LED_Set(1, 1); }
+//    	for(i=0;i<0x100000;i++) { MIOS32_BOARD_LED_Set(1, 0); }
+//  } 
 }
 
 /////////////////////////////////////////////////////////////////////////////
